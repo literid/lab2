@@ -50,8 +50,6 @@ void testVector() {
 	for (int i = 0; i < 5; ++i)
 		multipliedArray2[i] = number * initArray2[i];
 	
-	assert(v2 * number == (Vector<int>(multipliedArray2, 5)));
-	assert(number * v2 == (Vector<int>(multipliedArray2, 5)));
 
 	std::complex<int> initArray3[3];
 	initArray3[0] = std::complex<int>(1, 1);
@@ -80,6 +78,50 @@ void testVector() {
 	assert((v3 - v4) == (Vector<std::complex<int>>(dif34Array, 3)));
 	assert(v3.scalarMult(v4) == scalarMult34);
 	assert(v4.scalarMult(v3) == scalarMult34);
+
+	double initArray5[5] = { 1.1,2.2,3.3,4.4,5.5 };
+	double initArray6[5] = { -2.2,3.3,-4.4,15.3,-6 };
+	
+	Vector<double> v_5(initArray5, 5);
+	Vector<double> v_6(initArray6, 5);
+
+	double scalarMult56 = 0.0;
+
+	for (int i = 0; i < 5; ++i)
+		scalarMult56 += initArray5[i] * initArray6[i];
+	double sum56Array[5];
+	for (int i = 0; i < 5; ++i)
+		sum56Array[i] = initArray5[i] + initArray6[i];
+	double dif56Array[5];
+	for (int i = 0; i < 5; ++i)
+		dif56Array[i] = initArray5[i] - initArray6[i];
+
+	assert((v_5 + v_6) == (Vector<double>(sum56Array, 5)));
+	assert((v_5 - v_6) == (Vector<double>(dif56Array, 5)));
+	assert(v_5.scalarMult(v_6) == scalarMult56);
+	assert(v_6.scalarMult(v_5) == scalarMult56);
+
+
+	double num = 15.5;
+	double multipliedArray3[5];
+	for (int i = 0; i < 5; ++i)
+		multipliedArray3[i] = number * initArray5[i];
+
+	assert(v_5 * number == (Vector<double>(multipliedArray3, 5)));
+	assert(v_5.getSize() == 5);
+	assert(v_5.get(0) == 1.1);
+	assert(v_5.get(1) == 2.2);
+	assert(v_5.get(4) == 5.5);
+
+	v_5.set(0, 2.2);
+	v_5.set(1, 3.3);
+	v_5.set(4, 10.1);
+
+
+	assert(v_5.get(0) == 2.2);
+	assert(v_5.get(1) == 3.3);
+	assert(v_5.get(4) == 10.1);
+
 }
 
 int main() {
